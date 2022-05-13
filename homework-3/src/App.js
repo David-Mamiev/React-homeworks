@@ -2,12 +2,9 @@ import './App.css';
 
 function App() {
   return (
-    <div>
-      wait 
-      yo 
-      hold on
-      bitch
-    </div>
+    <h1>
+      homework 3
+    </h1>
   );
 }
 

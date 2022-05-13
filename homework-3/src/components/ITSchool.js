@@ -20,10 +20,6 @@ export class ITSchool extends Component{
 
 
     startLearningGroup(courseName, teacherName, amountOfStudents){
-        if(this.avaibleCourses.some((course) => course.courseName === courseName && course.availableTeachersAmount !== 0)){
-            this.startedGroups.push(LearningGroup(courseName, teacherName, amountOfStudents));
-            this.maxCountOfGroup--;
-        }
         this.avaibleCourses.forEach((course) => {
             if(course.courseName === courseName && course.availableTeachersAmount !== 0){
                 this.startedGroups.push(LearningGroup(courseName, teacherName, amountOfStudents));
@@ -36,11 +32,15 @@ export class ITSchool extends Component{
     }
 
     endLearningGroup(courseName, teacherName) {
-        // if(courseName && teacherName !== 0){
-            // availableTeachersAmount--;
-            // return new LearningGroup();
-        // }
-        return false;
+        this.startedGroups = this.startedGroups.filter((group) => (group.courseName === courseName && group.teacherName !== teacherName))
+            this.maxCountOfGroup++
+
+        
+        this.avaibleCourses.forEach((course) => {
+            if(course.courseName === courseName){
+                course.availableTeachersAmount++;
+            }
+        })
     }
     
     getLearningGroupByCourseName(courseName){
@@ -48,3 +48,6 @@ export class ITSchool extends Component{
         return  groupByCourse;
     }
 }
+
+const reactCourse = new ITSchool("React", "description", 4, 15);
+console.log(reactCourse);
