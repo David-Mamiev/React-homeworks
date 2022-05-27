@@ -1,14 +1,13 @@
-import { Component } from "react";
 import "./TodoItem.scss";
 
-export class ToDoItem extends Component{
-    render(){
-        return (
-            <div className="todo-item">
-                <span onClick={() => this.props.onItemComplete(this.props.item.id)}>✔</span>
-                <span className={this.props.item.completed ? "completed" : "default"}>{this.props.item.title}</span>
-                <button onClick={() => this.props.onItemDelete(this.props.item.id)}>X</button>
-            </div>
-        )
-    }
+const getCompletionStatus = (status) => status ? "completed" : "default";
+
+export function ToDoItem (props){
+    return (
+        <div className="todo-item">
+            <span onClick={() => props.onItemComplete(props.item.id)}>✔</span>
+            <span className={getCompletionStatus(props.item.completed)}>{props.item.title}</span>
+            <button onClick={() => props.onItemDelete(props.item.id)}>X</button>
+        </div>
+    )
 }

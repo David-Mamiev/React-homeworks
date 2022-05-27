@@ -1,0 +1,97 @@
+.App {
+  text-align: center;
+}
+.container{
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+.header{
+  display: flex; 
+  justify-content: space-between;
+  &__title{
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    margin: 35px 0 5px 0;
+  }
+  &__link{
+    margin-top: 50px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #000;
+  }
+  &__name{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    margin: 0;
+    text-align: left;
+  }
+}
+.search-input{
+  margin-top: 15px;
+  width: 38%;
+  background-color: #e8e8e8;
+  border: 1px solid #000000;
+  border-radius: 15px;
+  padding: 0 7px;
+  height: 25px;
+}
+.phone-book{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  &__item{
+    width: 38%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #D9D9D9;
+    border-radius: 15px;
+    padding: 10px;
+  }
+  &__left{
+    display: flex;
+    align-items: center;
+  }
+  &__image{
+    width: 50px;
+    height: 50px;
+    background-color: #f2f2f2;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+  &__text-block{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  &__name{
+    font-size: 20px;
+    line-height: 24px;
+    margin: 0;
+  }
+  &__number{
+    font-size: 12px;
+    line-height: 15px;
+    margin: 4px 0 0 0;
+  }
+  &__right{
+    display: flex;
+  }
+  &__change{
+    font-size: 18px;
+    cursor: pointer;
+    margin-right: 8px;
+  }
+  &__delete{
+    font-size: 22px;
+    cursor: pointer;
+  }
+}

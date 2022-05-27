@@ -3,26 +3,27 @@ import { Component } from "react";
 export class ToDoForm extends Component{
     state = {
         todoItem: {
-            title: "123",
+            title: "Demo ToDo...",
         },
     };
 
-    onTitleChange = (e) => {
-        console.log(e.target.value);
+    onTitleChangeHandler = ({target}) => {
+        this.setState({todoItem: {...this.state.todoItem, title: target.value}});
     };
 
-    onFormSubmit = (event) => {
+    onFormSubmitHandler = (event) => {
         event.preventDefault();
-        console.log(this.state);
+        const newItem = {...this.state.todoItem, id: 10, complete: false};
+        this.props.onToDoAdd(newItem);
     }
     
     render(){
         return (
-            <form onSubmit={() => this.onFormSubmit}>
+            <form className="ToDoForm" onSubmit={this.onFormSubmitHandler}>
                 <input 
                     type="text" 
                     value={this.state.todoItem.title}
-                    onChange={this.onTitleChange}
+                    onChange={this.onTitleChangeHandler}
                 ></input>
                 <button>Добавить</button>
             </form>

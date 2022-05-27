@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { ToDoItem } from "./ToDoItem";
+import  { ToDoItem }  from "./ToDoItem";
 
 export class ToDoList extends Component{
     state = {
@@ -9,6 +9,7 @@ export class ToDoList extends Component{
             {id: 3, title: "Выложить еовую дз", completed: false},
         ],
     };
+
 
     onItemCompleteHandler = (id) => {
         const item = this.state.list.find((todoItem) => todoItem.id === id);

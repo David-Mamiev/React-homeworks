@@ -1,54 +1,270 @@
 import { Component } from "react";
-import ToDoDescription from "./ToDoDescription";
+import ToDoDetails from "./ToDoDetails";
+import ToDoFormCreate from "./ToDoFormCreate";
 import ToDoItem from "./ToDoItem";
+import ToDoSearch from "./ToDoSearch";
 
-export default class ToDoList extends Component{
-    state = {
-        list: [
-            {id: 1, title: "Water Plants", description: "on the kitchen, dining room and first floor.", completed: false, clicked: false, history: [{field: "", action: "", prevValue: "", currentValue: "", appliedAt: ""}]},
-            {id: 2, title: "Pack the bags", description: "preparation for trip to London", completed: false, clicked: false, history: [{field: "", action: "", prevValue: "", currentValue: "", appliedAt: ""}]},
-            {id: 3, title: "Charge laptop", description: "preparation for trip to London", completed: false, clicked: false, history: [{field: "", action: "", prevValue: "", currentValue: "", appliedAt: ""}]},
-            {id: 4, title: "Post homeworks to Hillel Course", description: "React Froup from 30.04.2022 (every Saturday)", clicked: false, completed: false, history: [{field: "", action: "Created task with title “Post homeworks to Hillel Course”", prevValue: "", currentValue: "", appliedAt: "Monday, 16 May 2022 at 12:59 pm"}, {field: "", action: "Changed task description from “React Group 30.04.2022” to “React Group from 30.04.2022 (every Saturday)", prevValue: "", currentValue: "", appliedAt: "Monday, 16 May 2022 at 1:24 pm"}]},
-            {id: 5, title: "Make backup of HDD", description: "Use TimeMachine for that", completed: false, clicked: false, history: [{field: "", action: "", prevValue: "", currentValue: "", appliedAt: ""}]},
+export default class ToDoList extends Component {
+  state = {
+    list: [
+      {
+        id: 1,
+        title: "Water Plants",
+        description: "on the kitchen, dining room and first floor.",
+        completed: false,
+        clicked: false,
+        history: [
+          {
+            id: 1,
+            field: "",
+            action: "",
+            prevValue: "",
+            currentValue: "",
+            appliedAt: "",
+          },
         ],
+      },
+      {
+        id: 2,
+        title: "Pack the bags",
+        description: "preparation for trip to London",
+        completed: false,
+        clicked: false,
+        history: [
+          {
+            id: 1,
+            field: "",
+            action: "",
+            prevValue: "",
+            currentValue: "",
+            appliedAt: "",
+          },
+        ],
+      },
+      {
+        id: 3,
+        title: "Charge laptop",
+        description: "preparation for trip to London",
+        completed: false,
+        clicked: false,
+        history: [
+          {
+            id: 1,
+            field: "",
+            action: "",
+            prevValue: "",
+            currentValue: "",
+            appliedAt: "",
+          },
+        ],
+      },
+      {
+        id: 4,
+        title: "Post homeworks to Hillel Course",
+        description: "React Froup from 30.04.2022 (every Saturday)",
+        clicked: false,
+        completed: false,
+        history: [
+          {
+            id: 1,
+            field: "",
+            action: "Created task with title “Post homeworks to Hillel Course”",
+            prevValue: "",
+            currentValue: "",
+            appliedAt: "Monday, 16 May 2022 at 12:59 pm",
+          },
+          {
+            id: 2,
+            field: "",
+            action:
+              "Changed task description from “React Group 30.04.2022” to “React Group from 30.04.2022 (every Saturday)",
+            prevValue: "React Group 30.04.2022",
+            currentValue: "React Group from 30.04.2022 (every Saturday)",
+            appliedAt: "Monday, 16 May 2022 at 1:24 pm",
+          },
+        ],
+      },
+      {
+        id: 5,
+        title: "Make backup of HDD",
+        description: "Use TimeMachine for that",
+        completed: false,
+        clicked: false,
+        history: [
+          {
+            id: 1,
+            field: "",
+            action: "",
+            prevValue: "",
+            currentValue: "",
+            appliedAt: "",
+          },
+        ],
+      },
+    ],
+  };
+  onItemCompleteHandler = (id) => {
+    const item = this.state.list.find((el) => el.id === id);
+    const updatedItem = { ...item, completed: !item.completed };
+    this.onHistoryChange(updatedItem, "onItemComplete");
+    this.setState({
+      list: this.state.list.map((todoItem) =>
+        todoItem.id === id ? updatedItem : todoItem
+      ),
+    });
+  };
+  onItemClickHandler = (id) => {
+    const item = this.state.list.find((el) => el.id === id);
+    const updatedItem = { ...item, clicked: !item.clicked };
+    this.setState({
+      list: this.state.list.map((todoItem) =>
+        todoItem.id === id ? updatedItem : { ...todoItem, clicked: false }
+      ),
+    });
+  };
+  countId = 5;
+  itemTitle;
+  newDescription;
+  onTitleChangeHandler = ({ target }) => {
+    this.itemTitle = target.value;
+  };
+  onDescriptionChange = ({ target }) => {
+    this.newDescription = target.value;
+    console.log("wahaat");
+  };
+  onFormSubmitHandler = (event) => {
+    this.countId++;
+    event.preventDefault();
+    const newItem = {
+      id: this.countId,
+      title: this.itemTitle,
+      completed: false,
+      description: "",
+      clicked: false,
+      history: [
+        {
+          id: 1,
+          field: "",
+          action: "",
+          prevValue: "",
+          currentValue: "",
+          appliedAt: "",
+        },
+      ],
     };
-    onItemCompleteHandler = (id) => {
-        const item1 = this.state.list.find((el) => el.id === id);
-        const updatedItem1 = {...item1, completed: !item1.completed};
-        this.setState({
-            list: this.state.list.map((todoItem) => todoItem.id === id ? updatedItem1 : todoItem)
-        });
+    this.onHistoryChange(newItem, "onFormSubmit");
+    this.setState({ list: [...this.state.list, newItem] });
+  };
+  onSubmitDescriptionHandler = (event) => {
+    event.preventDefault();
+    const actualItem = this.state.list.filter((todoItem) => todoItem.clicked);
+    this.onHistoryChange(actualItem[0], "onDescriptionChange");
+    this.setState(
+      this.state.list.map((todoItem) => {
+        if (todoItem.clicked) {
+          todoItem.description = this.newDescription;
+          return todoItem;
+        } else {
+          return todoItem;
+        }
+      })
+    );
+  };
+  data = new Date();
+  getActualData = (data) => {
+    const day =
+      data.getDay() === 0
+        ? "Sunday"
+        : data.getDay() === 1
+        ? "Monday"
+        : data.getDay() === 2
+        ? "Tuesday"
+        : data.getDay() === 3
+        ? "Wednesday"
+        : data.getDay() === 4
+        ? "Thursday"
+        : data.getDay() === 5
+        ? "Friday"
+        : "Saturday";
+    const numberDay = data.getDate();
+    const month = data.getMonth();
+    const year = data.getFullYear();
+    const hours = data.getHours();
+    const minutes = data.getMinutes();
+    return `${day}, ${numberDay}, ${month} ${year} at ${hours}:${minutes}`;
+  };
+  onHistoryChange = (item, fncName) => {
+    const actualIdHistory = item.history.reduce(
+      (prevValue, currentValue) => prevValue + currentValue
+    );
+    const newObjHistory = {
+      id: actualIdHistory,
+      field:
+        fncName === "onDescriptionChange"
+          ? item.description
+          : fncName === "onFormSubmit"
+          ? item.title
+          : "",
+      action:
+        fncName === "onItemComplete"
+          ? `Task changed to ${item.completed ? "completed" : "not completed"}`
+          : fncName === "onDescriptionChange"
+          ? `Changed task description from "${
+              this.state.list[item.id - 1].description
+            }" to "${this.newDescription}"`
+          : fncName === "onFormSubmit"
+          ? `Created task with title "${item.title}"`
+          : "",
+      prevValue: 
+      fncName === "onItemComplete"
+          ? `${!item.completed}`
+          : fncName === "onDescriptionChange"
+          ? `${this.state.list[item.id - 1].description}`
+          : "",
+      currentValue:
+        fncName === "onItemComplete"
+          ? item.completed
+          : fncName === "onDescriptionChange"
+          ? item.description
+          : fncName === "onFormSubmit"
+          ? item.title
+          : "",
+      appliedAt: this.getActualData(this.data),
     };
-    onItemClickHandler = (id) => {
-        const item = this.state.list.find((el) => el.id === id);
-        const updatedItem = {...item, clicked: !item.clicked}
-        this.setState({
-            list: this.state.list.map((todoItem) => todoItem.id === id ? updatedItem : {...todoItem, clicked: false})
-        });
-    }
-    render(){
-        return(
-            <div className="app">
-                <div className="toDoList">
-                    <h2 className="toDoList__title">Todos</h2>
-                    <input type="text" placeholder="Search" className="toDoList__search"></input>
-                    <ul className="toDoList__items">
-                        {this.state.list.map((todoItem) => 
-                            <ToDoItem 
-                                key={todoItem.id}
-                                item={todoItem}   
-                                onItemComplete={this.onItemCompleteHandler} 
-                                onItemClick={this.onItemClickHandler}
-                            />
-                        )}
-                    </ul>
-                    <div className="toDoList__addTask">
-                      <textarea className="toDoList__add-input" type="text" placeholder="what you need to do?"></textarea>
-                        <button className="toDoList__add-but">+</button>
-                    </div>
-                </div>
-                {this.state.list.map((todoItem) => todoItem.clicked ? <ToDoDescription item={todoItem} key={todoItem.id}/> : null)}
-            </div>
-        )
-    }
+    item.history.push(newObjHistory);
+  };
+  render() {
+    return (
+      <div className="app">
+        <div className="toDoList">
+          <h2 className="toDoList__title">Todos</h2>
+          <ToDoSearch />
+          <ul className="toDoList__items">
+            {this.state.list.map((todoItem) => (
+              <ToDoItem
+                key={todoItem.id}
+                item={todoItem}
+                onItemComplete={this.onItemCompleteHandler}
+                onItemClick={this.onItemClickHandler}
+              />
+            ))}
+          </ul>
+          <ToDoFormCreate
+            onTitleChange={this.onTitleChangeHandler}
+            onSubmit={this.onFormSubmitHandler}
+          />
+        </div>
+        {this.state.list.map((todoItem) =>
+          todoItem.clicked ? (
+            <ToDoDetails
+              item={todoItem}
+              key={todoItem.id}
+              onDescriptionChange={this.onDescriptionChange}
+              onSubmitDescription={this.onSubmitDescriptionHandler}
+            />
+          ) : null
+        )}
+      </div>
+    );
+  }
 }
