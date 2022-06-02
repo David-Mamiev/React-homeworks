@@ -3,8 +3,10 @@ import ToDoDetails from "./ToDoDetails";
 import ToDoFormCreate from "./ToDoFormCreate";
 import ToDoItem from "./ToDoItem";
 import ToDoSearch from "./ToDoSearch";
+import { onHistoryChange } from "../../utils/utils";
 
 export default class ToDoList extends Component {
+  
   state = {
     list: [
       {
@@ -106,7 +108,7 @@ export default class ToDoList extends Component {
   onItemCompleteHandler = (id) => {
     const item = this.state.list.find((el) => el.id === id);
     const updatedItem = { ...item, completed: !item.completed };
-    this.onHistoryChange(updatedItem, "onItemComplete");
+    onHistoryChange(updatedItem, "onItemComplete", this.state, this.newDescription);
     this.setState({
       list: this.state.list.map((todoItem) =>
         todoItem.id === id ? updatedItem : todoItem
@@ -152,13 +154,13 @@ export default class ToDoList extends Component {
         },
       ],
     };
-    this.onHistoryChange(newItem, "onFormSubmit");
+    onHistoryChange(newItem, "onFormSubmit", this.state, this.newDescription);
     this.setState({ list: [...this.state.list, newItem] });
   };
   onSubmitDescriptionHandler = (event) => {
     event.preventDefault();
     const actualItem = this.state.list.filter((todoItem) => todoItem.clicked);
-    this.onHistoryChange(actualItem[0], "onDescriptionChange");
+    onHistoryChange(actualItem[0], "onDescriptionChange", this.state, this.newDescription);
     this.setState(
       this.state.list.map((todoItem) => {
         if (todoItem.clicked) {
@@ -170,69 +172,7 @@ export default class ToDoList extends Component {
       })
     );
   };
-  data = new Date();
-  getActualData = (data) => {
-    const day =
-      data.getDay() === 0
-        ? "Sunday"
-        : data.getDay() === 1
-        ? "Monday"
-        : data.getDay() === 2
-        ? "Tuesday"
-        : data.getDay() === 3
-        ? "Wednesday"
-        : data.getDay() === 4
-        ? "Thursday"
-        : data.getDay() === 5
-        ? "Friday"
-        : "Saturday";
-    const numberDay = data.getDate();
-    const month = data.getMonth();
-    const year = data.getFullYear();
-    const hours = data.getHours();
-    const minutes = data.getMinutes();
-    return `${day}, ${numberDay}, ${month} ${year} at ${hours}:${minutes}`;
-  };
-  onHistoryChange = (item, fncName) => {
-    const actualIdHistory = item.history.reduce(
-      (prevValue, currentValue) => prevValue + currentValue
-    );
-    const newObjHistory = {
-      id: actualIdHistory,
-      field:
-        fncName === "onDescriptionChange"
-          ? item.description
-          : fncName === "onFormSubmit"
-          ? item.title
-          : "",
-      action:
-        fncName === "onItemComplete"
-          ? `Task changed to ${item.completed ? "completed" : "not completed"}`
-          : fncName === "onDescriptionChange"
-          ? `Changed task description from "${
-              this.state.list[item.id - 1].description
-            }" to "${this.newDescription}"`
-          : fncName === "onFormSubmit"
-          ? `Created task with title "${item.title}"`
-          : "",
-      prevValue: 
-      fncName === "onItemComplete"
-          ? `${!item.completed}`
-          : fncName === "onDescriptionChange"
-          ? `${this.state.list[item.id - 1].description}`
-          : "",
-      currentValue:
-        fncName === "onItemComplete"
-          ? item.completed
-          : fncName === "onDescriptionChange"
-          ? item.description
-          : fncName === "onFormSubmit"
-          ? item.title
-          : "",
-      appliedAt: this.getActualData(this.data),
-    };
-    item.history.push(newObjHistory);
-  };
+  
   render() {
     return (
       <div className="app">
