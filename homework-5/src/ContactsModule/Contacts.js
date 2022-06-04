@@ -1,6 +1,7 @@
 import { Search } from "./components/Search";
 import { useState } from "react";
 import ListContacts from "./components/ListContacts";
+import EditContact from "./components/EditContact";
 const phoneBook = [
   {
     id: 1,
@@ -48,12 +49,17 @@ const phoneBook = [
 
 export default function Contacts() {
   const [list, setList] = useState(phoneBook);
-  // const [updateFirstName, setUpdateFirstName] = useState("");
-  // const [updateLastName, setUpdateLastName] = useState("");
-  // const [updateNumber, setUpdateNumber] = useState("");
-  let updateFirstName;
-  let updateLastName;
-  let updateNumber;
+  // const [updateFirstName, setUpdateFirstName] = useState();
+  // const [updateLastName, setUpdateLastName] = useState();
+  // const [updateNumber, setUpdateNumber] = useState();
+  let updateFirstName = "";
+  let updateLastName = "";
+  let updateNumber = "";
+  function cleanInputValue (){
+    updateFirstName = "";
+    updateLastName = "";
+    updateNumber = "";
+  };
   function onDeleteHandler(id) {
     setList(list.filter((contact) => contact.id !== id));
   }
@@ -83,6 +89,10 @@ export default function Contacts() {
           : contact
       )
     );
+    cleanInputValue();
+    // setUpdateFirstName("");
+    // setUpdateLastName("");
+    // setUpdateNumber("");
   };
 
   const [titleFilter, setTitleFilter] = useState("");
@@ -94,13 +104,28 @@ export default function Contacts() {
         contact.lastName.includes(titleFilter) ||
         contact.number.includes(titleFilter)
     );
-
+      
+  const [modalActive, setModalActive] = useState(false);
+  const [getEditItem, setGetEditItem] = useState(list[0]);
+  function onClickEditButton(item){
+    setGetEditItem(item);
+  }
   return (
     <div className="container">
       <Search
         onChangeSearch={({ target }) =>
           setTitleFilter(target.value.toLowerCase())
         }
+      />
+      <EditContact
+        state={list}
+        active={modalActive}
+        setActive={setModalActive}
+        onChangeFirstName={onChangeFirstNameHandler}
+        onChangeLastName={onChangeLastNameHandler}
+        onChangeNumber={onChangeNumberHandler}
+        onSubmit={onSubmitHandler}
+        getEditItem={getEditItem}
       />
       <ListContacts
         filterList={filterListByTitle}
@@ -110,6 +135,8 @@ export default function Contacts() {
         onChangeLastName={onChangeLastNameHandler}
         onChangeNumber={onChangeNumberHandler}
         onSubmit={onSubmitHandler}
+        modalActive={setModalActive}
+        onClickEditButton={onClickEditButton}
       />
     </div>
   );

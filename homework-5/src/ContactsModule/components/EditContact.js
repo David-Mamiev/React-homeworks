@@ -2,10 +2,12 @@ export default function EditContact({
   item,
   active,
   setActive,
-  onChangeFirstName1,
-  onChangeLastName1,
-  onChangeNumber1,
-  onSubmit1,
+  onChangeFirstName,
+  onChangeLastName,
+  onChangeNumber,
+  onSubmit,
+  state,
+  getEditItem
 }) {
   return (
     <div
@@ -17,7 +19,7 @@ export default function EditContact({
           <p className="pop-up__name">
             Edit Contact:
             <b className="pop-up__name-b">
-              {item.item.firstName} {item.item.lastName}
+              {getEditItem.firstName} {getEditItem.lastName}
             </b>
           </p>
           <div className="pop-up__escape" onClick={() => setActive(false)}>
@@ -29,31 +31,31 @@ export default function EditContact({
           <form
             className="pop-up__form"
             onSubmit={(e) => {
-              return onSubmit1(e, item.item.id);
+              return onSubmit(e, getEditItem.id);
             }}
           >
             <div className="pop-up__field">
               <p className="pop-up__field-name">First Name</p>
               <input
                 className="pop-up__input"
-                placeholder={item.item.firstName}
-                onChange={onChangeFirstName1}
+                placeholder={getEditItem.firstName}
+                onChange={(e) => onChangeFirstName(e)}
               ></input>
             </div>
             <div className="pop-up__field">
               <p className="pop-up__field-name">Last Name</p>
               <input
                 className="pop-up__input"
-                placeholder={item.item.lastName}
-                onChange={onChangeLastName1}
+                placeholder={getEditItem.lastName}
+                onChange={(e) => onChangeLastName(e)}
               ></input>
             </div>
             <div className="pop-up__field">
               <p className="pop-up__field-name">Phone Number</p>
               <input
                 className="pop-up__input"
-                placeholder={item.item.number}
-                onChange={onChangeNumber1}
+                placeholder={getEditItem.number}
+                onChange={(e) => onChangeNumber(e)}
               ></input>
             </div>
             <button type="submit" className="pop-up__save">

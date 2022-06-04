@@ -1,6 +1,6 @@
 import ContactItem from "./ContactItem";
 
-export default function ListContacts({ filterList, state, onDelete, onChangeFirstName, onChangeLastName, onChangeNumber, onSubmit }) {
+export default function ListContacts({ filterList, state, onDelete, onChangeFirstName, onChangeLastName, onChangeNumber, onSubmit, modalActive, onClickEditButton }) {
     return (
         <ul className="phone-book">
             {filterList(state).map((contact) => (
@@ -12,6 +12,8 @@ export default function ListContacts({ filterList, state, onDelete, onChangeFirs
                     onChangeLastName={onChangeLastName}
                     onChangeNumber={onChangeNumber}
                     onSubmit={onSubmit}
+                    modalActive={modalActive}
+                    onClickEditButton={onClickEditButton}
                 />
             ))}
         </ul>

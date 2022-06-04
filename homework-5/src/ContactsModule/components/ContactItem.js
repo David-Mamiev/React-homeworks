@@ -1,8 +1,5 @@
-import EditContact from "./EditContact";
-import { useState } from "react";
 
 export default function ContactItem(props) {
-  const [modalActive, setModalActive] = useState(false);
   return (
     <li className="phone-book__item">
       <div className="phone-book__left">
@@ -17,7 +14,10 @@ export default function ContactItem(props) {
       <div className="phone-book__right">
         <div
           className="phone-book__change"
-          onClick={() => setModalActive(true)}
+          onClick={() => {
+            props.modalActive(true);
+            props.onClickEditButton(props.item)
+          }}
         >
           ✍️
         </div>
@@ -28,16 +28,6 @@ export default function ContactItem(props) {
           🗑
         </div>
       </div>
-      <EditContact
-        item={props}
-        key={props.item.id}
-        active={modalActive}
-        setActive={setModalActive}
-        onChangeFirstName1={props.onChangeFirstName}
-        onChangeLastName1={props.onChangeLastName}
-        onChangeNumber1={props.onChangeNumber}
-        onSubmit1={props.onSubmit}
-      />
     </li>
   );
 }
