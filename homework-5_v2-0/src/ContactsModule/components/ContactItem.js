@@ -1,5 +1,8 @@
+import { contactContext } from "../../contexts/ContactContext";
+import { useContext } from "react";
 
 export default function ContactItem(props) {
+  const modalActive = useContext(contactContext);
   return (
     <li className="phone-book__item">
       <div className="phone-book__left">
@@ -15,7 +18,7 @@ export default function ContactItem(props) {
         <div
           className="phone-book__change"
           onClick={() => {
-            props.modalActive(true);
+            modalActive(true);
             props.onClickEditButton(props.item)
           }}
         >
@@ -31,4 +34,3 @@ export default function ContactItem(props) {
     </li>
   );
 }
-/** */

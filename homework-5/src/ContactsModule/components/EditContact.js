@@ -1,14 +1,38 @@
+import { useState } from "react";
 export default function EditContact({
   item,
   active,
   setActive,
-  onChangeFirstName,
-  onChangeLastName,
-  onChangeNumber,
-  onSubmit,
+  // onChangeFirstName,
+  // onChangeLastName,
+  // onChangeNumber,
+  // onSubmit,
+  onSaveEditContact,
   state,
   getEditItem
 }) {
+  const [updateFirstName, setUpdateFirstName] = useState();
+  const [updateLastName, setUpdateLastName] = useState();
+  const [updateNumber, setUpdateNumber] = useState();
+
+  const onChangeFirstNameHandler = ({ target }) => {
+    setUpdateFirstName(target.value.toLowerCase());
+  };
+  const onChangeLastNameHandler = ({ target }) => {
+    setUpdateLastName(target.value.toLowerCase());
+  };
+  const onChangeNumberHandler = ({ target }) => {
+    setUpdateNumber(target.value.toLowerCase());
+  };
+  const onSaveEditContactHandler = (getEditItem) => {
+    onSaveEditContact({
+      id: getEditItem.id,
+      firstName: updateFirstName,
+      lastName: updateLastName,
+      number: updateNumber,
+    })
+  }
+
   return (
     <div
       className={active ? "pop-up pop-up_active" : "pop-up"}
@@ -30,16 +54,16 @@ export default function EditContact({
           <div className="pop-up__image"></div>
           <form
             className="pop-up__form"
-            onSubmit={(e) => {
-              return onSubmit(e, getEditItem.id);
-            }}
+            // onSubmit={(e) => {
+            //   return onSubmit(e, getEditItem.id);
+            // }}
           >
             <div className="pop-up__field">
               <p className="pop-up__field-name">First Name</p>
               <input
                 className="pop-up__input"
                 placeholder={getEditItem.firstName}
-                onChange={(e) => onChangeFirstName(e)}
+                onChange={(e) => onChangeFirstNameHandler(e)}
               ></input>
             </div>
             <div className="pop-up__field">
@@ -47,7 +71,7 @@ export default function EditContact({
               <input
                 className="pop-up__input"
                 placeholder={getEditItem.lastName}
-                onChange={(e) => onChangeLastName(e)}
+                onChange={(e) => onChangeLastNameHandler(e)}
               ></input>
             </div>
             <div className="pop-up__field">
@@ -55,10 +79,10 @@ export default function EditContact({
               <input
                 className="pop-up__input"
                 placeholder={getEditItem.number}
-                onChange={(e) => onChangeNumber(e)}
+                onChange={(e) => onChangeNumberHandler(e)}
               ></input>
             </div>
-            <button type="submit" className="pop-up__save">
+            <button onClick={() => onSaveEditContactHandler(getEditItem)} className="pop-up__save">
               Save
             </button>
           </form>

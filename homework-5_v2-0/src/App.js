@@ -1,13 +1,13 @@
-import './App.scss';
-import Contacts from "./ContactsModule/Contacts"
 import Header from './Header';
+import './App.scss';
+import Contacts from "./ContactsModule/Contacts";
 
 function App() {
   return (
-    <div className="App">
+    <>
       <Header />
       <Contacts />
-    </div>
+    </>
   );
 }
 
