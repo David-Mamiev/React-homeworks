@@ -1,0 +1,27 @@
+.app-title{
+    margin-left: 50px;
+}
+.apps{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+}
+.main-app{
+    width: 30%;
+    text-decoration: none;
+    border: 5px solid rgb(5, 238, 238);
+    padding: 5px;
+    border-radius: 20px;
+    text-align: center;
+    &__title{
+        font-size: 33px;
+        color: black;
+        border-bottom: 2px solid rgb(5, 238, 238);
+        margin: 0;
+        padding: 8px 0;
+    }
+    &__description{
+        font-size: 18px;
+        color: black;
+    }
+}
