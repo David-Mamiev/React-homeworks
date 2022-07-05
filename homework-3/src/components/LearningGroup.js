@@ -2,11 +2,11 @@ import { Component } from "react";
 import { Lesson } from "./Lesson";
 
 export class LearningGroup extends Component{
-    constructor(courseName, teacherName, countOfStudents){
+    constructor(courseName, teacherName, amountOfStudents){
         super();
         this.courseName = courseName;
         this.teacherName = teacherName;
-        this.countOfStudents = countOfStudents;
+        this.amountOfStudents = amountOfStudents;
         this.passedLessons = [];
     }
     doneLesson(title, topics){

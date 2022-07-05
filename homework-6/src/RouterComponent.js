@@ -30,7 +30,9 @@ function RouterComponent() {
           </nav>
         </Route>
         <Route path="/todos" component={ToDoList} />
-        <Route path="/contacts" component={Contacts} />
+        <Route path="/contacts" component={Contacts}>
+          <Route path=":id" component={DetailedCard}></Route>
+        </Route>
         <Route path="*" component={NotFound} />
       </Switch>
     </Router>

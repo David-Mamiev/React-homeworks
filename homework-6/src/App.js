@@ -7,3 +7,5 @@ function App() {
 }
 
 export default App;
+
+const navTo = <Link path={`contacts/${1}`}>
