@@ -1,0 +1,53 @@
+.learning-group {
+  width: 70%;
+  margin-left: 20px;
+  background-color: #d9d9d9;
+  padding: 10px;
+  &__title {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    margin: 10px 0 0 0;
+    color: #777171;
+  }
+  &__list {
+    padding-left: 0;
+    list-style: none;
+  }
+}
+.group-list {
+  &__title {
+    display: inline-block;
+    font-size: 12px;
+    line-height: 15px;
+    margin: 0 0 15px 0;
+    color: #fff;
+  }
+  &__li {
+    margin-bottom: 10px;
+    background-color: #969696;
+    padding: 15px;
+  }
+  &__text-block {
+    background: #d9d9d9;
+    padding: 0 20px;
+    &s {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  &__title-li {
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 39px;
+    margin: 15px auto;
+    text-align: center;
+  }
+  &__title-par {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    margin: 4px auto;
+    text-align: center;
+  }
+}

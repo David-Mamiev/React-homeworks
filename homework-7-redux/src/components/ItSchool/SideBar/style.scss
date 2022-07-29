@@ -1,0 +1,24 @@
+.side-bar{
+    padding: 20px;
+    background: #D9D9D9;
+    &__item{
+        background: #969696;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 19px;
+        color: #fff;
+        padding: 15px;
+        margin-bottom: 10px;
+        text-transform: capitalize;
+        &:hover{
+            cursor: pointer;
+        }
+        &:last-child{
+            margin-bottom: 0;
+        }
+        &.active{
+            background: #5A5A5A;
+        }
+    }
+}

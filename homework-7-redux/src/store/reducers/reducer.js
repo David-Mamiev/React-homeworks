@@ -55,6 +55,13 @@ export const reducer = (prevState, { type, payload }) => {
                     startedGroups: newStartedGroups, maxGroupCount: prevState.schools.maxGroupCount + 1,
                     avaibleCourses: newAvaibleCourses
                 })
+        case ACTION_TYPES.UPDATE_SELECTED_SCHOOL: {
+            return refreshState(prevState, {selectedSchool: prevState.schools.filter((school) => school.id === payload.id)})
+        }
+        case ACTION_TYPES.UPDATE_SELECTED_COURSE: {
+            return refreshState(prevState, {selectedSchool: refreshState(prevState.selectedSchool, {selectedCourseId: payload.id})
+        })
+        }
         default:
             return prevState;
     }

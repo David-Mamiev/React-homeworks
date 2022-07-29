@@ -1,0 +1,68 @@
+.it-school{
+    display: flex;
+    justify-content: space-around;
+}
+.school{
+    width: 80%;
+    &__courses{
+        display: flex;
+        margin-top: 28px;
+    }
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #DFDFDF;
+    &__title{
+        margin: 0;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 29px;
+    }
+    &__description{
+        margin: 10px 0;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+    }
+    &__group-count{
+        margin: 9px 0 0 0;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+    }
+    &__total-students{
+        margin: 8px 0;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+    }
+}
+.courses{
+    background: #D9D9D9;
+    width: 28.5%;
+    padding: 20px 10px 0 10px;
+    &__title{
+        margin: 0;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 19px;
+        color: #777171;
+    }
+    &__list{
+        margin: 20px 0 0 0;
+        padding: 0;
+        list-style: none;
+    }
+    &__li{
+        padding: 22px 0 23px 21px;
+        background-color: #969696;
+        margin-bottom: 10px;
+        color: #FFFFFF;
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
+}
